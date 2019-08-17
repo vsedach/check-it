@@ -1,10 +1,6 @@
-;;;; check-it.asd
+;;; -*- Mode: LISP; Syntax: COMMON-LISP; Base: 10; indent-tabs-mode: nil -*-
 
-(defpackage :check-it-system
-  (:use :cl :asdf))
-(in-package :check-it-system)
-
-(defsystem :check-it
+(defsystem "check-it"
   :name "check-it"
   :serial t
   :author "Kyle Littler"
@@ -25,15 +21,10 @@
                          (:file "shrink")
                          (:file "check-it"))
             :serial t))
-  :depends-on (:alexandria :closer-mop :optima)
-  :in-order-to ((test-op (load-op :check-it-test)))
-  :perform (test-op :after (op c)
-                    (funcall
-                     (intern #.(string '#:run-all-tests)
-                             :check-it-test))))
+  :depends-on ("alexandria" "closer-mop" "optima")
+  :in-order-to ((test-op (test-op "check-it/test"))))
 
-(defsystem :check-it-test
-  :name "check-it-test"
+(defsystem "check-it/test"
   :serial t
   :author "Kyle Littler"
   :license "LLGPL"
@@ -46,4 +37,5 @@
                          (:file "randomized-tests")
                          (:file "destructive-tests")
                          (:file "for-travis"))))
-  :depends-on (:check-it :stefil))
+  :depends-on (:check-it :stefil)
+  :perform (test-op (o c) (symbol-call :check-it-test '#:run-all-tests)))
