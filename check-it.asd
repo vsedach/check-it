@@ -4,7 +4,7 @@
   :name "check-it"
   :serial t
   :author "Kyle Littler"
-  :license "LLGPL"
+  :license "LGPL-3.0-or-later"
   :description "A randomized property-based testing tool for Common Lisp."
   :long-description
   #.(uiop:read-file-string
@@ -27,7 +27,7 @@
 (defsystem "check-it/test"
   :serial t
   :author "Kyle Littler"
-  :license "LLGPL"
+  :license "LGPL-3.0-or-later"
   :description "Tests for check-it."
   :components
   ((:module :test
